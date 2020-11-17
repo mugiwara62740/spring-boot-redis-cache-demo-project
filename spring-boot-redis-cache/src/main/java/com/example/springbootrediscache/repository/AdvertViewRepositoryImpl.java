@@ -1,46 +1,43 @@
 package com.example.springbootrediscache.repository;
 
-import com.example.springbootrediscache.models.User;
+import com.example.springbootrediscache.models.AdvertView;
 import org.springframework.data.redis.core.HashOperations;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Repository;
 
-import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 @Repository
-public class UserRepositoryImpl implements  UserRepository {
+public class AdvertViewRepositoryImpl implements AdvertViewRepository {
 
-    private RedisTemplate<String, User> redisTemplate;
+    public static final String ADVERT_TEST = "ADVERT_1";
+    private RedisTemplate<String, String> redisTemplate;
     private HashOperations hashOperations; //to access redis cache
 
-    public UserRepositoryImpl(RedisTemplate<String, User> redisTemplate) {
+    public AdvertViewRepositoryImpl(RedisTemplate<String, String> redisTemplate) {
         this.redisTemplate = redisTemplate;
-
         hashOperations = redisTemplate.opsForHash();
     }
     @Override
-    public void save(User user) {
-        hashOperations.put("USER",user.getId(),user);
+    public void save(AdvertView advertView) {
+            //https://stackoverflow.com/questions/28799039/need-some-advice-with-increment-in-jedis
+            hashOperations.increment(ADVERT_TEST, advertView.getAdvertId(), 1L);
     }
 
     @Override
-    public Map<String,User> findAll() {
-        return hashOperations.entries("USER");
+    public Map<String, String> findAll() {
+        return hashOperations.entries(ADVERT_TEST);
     }
 
     @Override
-    public User findById(String id) {
-        return (User)hashOperations.get("USER",id);
-    }
-
-    @Override
-    public void update(User user) {
-      save(user);
+    public AdvertView findById(String id) {
+        Object advertView = hashOperations.get(ADVERT_TEST,id);
+        return Optional.ofNullable(advertView).map(c-> new AdvertView(id,(String) advertView)).orElse(null);
     }
 
     @Override
     public void delete(String id) {
-       hashOperations.delete("USER",id);
+       hashOperations.delete(ADVERT_TEST, id);
     }
 }

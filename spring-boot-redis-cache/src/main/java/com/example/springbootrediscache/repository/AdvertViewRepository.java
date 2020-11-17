@@ -1,16 +1,14 @@
 package com.example.springbootrediscache.repository;
 
-import com.example.springbootrediscache.models.User;
+import com.example.springbootrediscache.models.AdvertView;
 
 
-import java.util.List;
 import java.util.Map;
 
-public interface UserRepository {
-    void save(User user);
+public interface AdvertViewRepository {
+    void save(AdvertView advertView);
 
-    Map<String,User> findAll();
-    User findById(String id);
-    void update(User user);
+    Map<String, String> findAll();
+    AdvertView findById(String id);
     void delete(String id);
 }

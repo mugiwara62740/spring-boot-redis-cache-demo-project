@@ -2,39 +2,29 @@ package com.example.springbootrediscache.models;
 
 import java.io.Serializable;
 
-public class User implements Serializable {
+public class AdvertView implements Serializable {
 
-     private String id;
-     private String name;
-     private Long salary;
+     private String advertId;
+     private String views;
 
-    public User(String id, String name, Long salary) {
-        this.id = id;
-        this.name = name;
-        this.salary = salary;
+    public AdvertView(String advertId, String views) {
+        this.advertId = advertId;
+        this.views = views;
     }
 
-    public String getId() {
-        return id;
+    public String getAdvertId() {
+        return advertId;
     }
 
-    public void setId(String id) {
-        this.id = id;
+    public void setAdvertId(String advertId) {
+        this.advertId = advertId;
     }
 
-    public String getName() {
-        return name;
+    public String getViews() {
+        return views;
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public Long getSalary() {
-        return salary;
-    }
-
-    public void setSalary(Long salary) {
-        this.salary = salary;
+    public void setViews(String views) {
+        this.views = views;
     }
 }

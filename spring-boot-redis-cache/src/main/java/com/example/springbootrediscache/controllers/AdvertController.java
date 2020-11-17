@@ -17,29 +17,24 @@ public class AdvertController {
     }
 
     @GetMapping("/all")
-    public Map<String, AdvertView> GetAll(){
+    public Map<String, String> GetAll(){
        return _advertViewRepository.findAll();
     }
 
     @GetMapping("/all/{id}")
-    public AdvertView GetAll(@PathVariable("id") final String id){
-        return _advertViewRepository.findById(id);
+    public AdvertView GetAll(@PathVariable("id") final Long id){
+        return _advertViewRepository.findById(String.valueOf(id));
     }
 
     @PostMapping("/add")
-    public AdvertView add(@RequestBody AdvertView advertView){
-        _advertViewRepository.save(new AdvertView(advertView.getId(), advertView.getName(),80000L));
-        return _advertViewRepository.findById(advertView.getId());
-
+    public void add(@RequestBody AdvertView advertView){
+        _advertViewRepository.save(advertView);
+        //return _advertViewRepository.findById(advertView.getAdvertId());
     }
 
-
-    @PostMapping("/update")
-    public AdvertView update(@RequestBody AdvertView advertView){
-        _advertViewRepository.update(new AdvertView(advertView.getId(), advertView.getName(),1000L));
-        return _advertViewRepository.findById(advertView.getId());
-
+    @PostMapping("/delete/{id}")
+    public void delete(@PathVariable("id") final Long id){
+        _advertViewRepository.delete(String.valueOf(id));
     }
-
 
 }
