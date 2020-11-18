@@ -49,7 +49,9 @@ public class RedisConfiguration {
                 .readFrom(ReadFrom.REPLICA_PREFERRED)
                 .build();
         RedisStaticMasterReplicaConfiguration staticMasterReplicaConfiguration = new RedisStaticMasterReplicaConfiguration(this.getMaster().getHost(), this.getMaster().getPort());
-        staticMasterReplicaConfiguration.setPassword(RedisPassword.of(password));
+        if(password != null){
+            staticMasterReplicaConfiguration.setPassword(RedisPassword.of(password));
+        }
         this.getSlaves().forEach(slave -> staticMasterReplicaConfiguration.addNode(slave.getHost(), slave.getPort()));
         return new LettuceConnectionFactory(staticMasterReplicaConfiguration, clientConfig);
     }

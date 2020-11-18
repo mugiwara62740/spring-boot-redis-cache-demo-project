@@ -27,12 +27,12 @@ public class SwaggerConfig {
     private ApiInfo metaInfo() {
 
         ApiInfo apiInfo = new ApiInfo(
-                "Spring Boot Redis  Example API",
-                "Spring Boot redis",
+                "AdvertManager API",
+                "Spring Boot redis POC for externalization of advert views mecanism",
                 "1.0",
                 "learning",
-                new Contact("thirstybrain", "",
-                        ""),
+                new Contact("El Ouahmani Younes", "",
+                        "os-younes.el-ouahmani@rakuten.com"),
                 "",
                 ""
         );

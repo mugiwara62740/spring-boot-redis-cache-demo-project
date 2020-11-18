@@ -29,7 +29,6 @@ public class AdvertController {
     @PostMapping("/add")
     public void add(@RequestBody AdvertView advertView){
         _advertViewRepository.save(advertView);
-        //return _advertViewRepository.findById(advertView.getAdvertId());
     }
 
     @PostMapping("/delete/{id}")
