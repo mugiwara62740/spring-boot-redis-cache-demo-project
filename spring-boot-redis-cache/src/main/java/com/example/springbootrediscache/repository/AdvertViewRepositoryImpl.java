@@ -21,7 +21,6 @@ public class AdvertViewRepositoryImpl implements AdvertViewRepository {
     }
     @Override
     public void save(AdvertView advertView) {
-            //https://stackoverflow.com/questions/28799039/need-some-advice-with-increment-in-jedis
             hashOperations.increment(ADVERT_TEST, advertView.getAdvertId(), 1L);
     }
 
