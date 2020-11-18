@@ -4,13 +4,9 @@ server:
 spring:
   redis:
     master:
-      host: 172.21.101.40
-      port: 12002
+      host: 127.0.0.1
+      port: 6379
     slaves:
-      - host: 172.21.101.38
-        port: 12002
-    lettuce:
-      pool:
-        max-active: 200
-        max-idle: 200
+      - host: 127.0.0.1
+        port: 6380
     timeout: 30000
