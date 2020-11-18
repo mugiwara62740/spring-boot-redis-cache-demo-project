@@ -3,10 +3,11 @@ server:
 
 spring:
   redis:
+    password: 52wJmtmEVuAsL
     master:
-      host: 127.0.0.1
-      port: 6379
+      host: 172.21.101.40
+      port: 12002
     slaves:
-      - host: 127.0.0.1
-        port: 6380
+      - host: 172.21.101.38
+        port: 12002
     timeout: 30000
