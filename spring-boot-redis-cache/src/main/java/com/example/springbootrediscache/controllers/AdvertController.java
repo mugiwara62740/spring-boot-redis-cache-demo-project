@@ -1,39 +1,45 @@
 package com.example.springbootrediscache.controllers;
 
-import com.example.springbootrediscache.models.AdvertView;
-import com.example.springbootrediscache.repository.AdvertViewRepository;
+import com.example.springbootrediscache.dtos.AdvertViewDto;
+import com.example.springbootrediscache.entities.AdvertView;
+import com.example.springbootrediscache.repositories.AdvertViewRepository;
+import com.example.springbootrediscache.repositories.AdvertViewRepositoryImpl;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Map;
+import java.util.ArrayList;
+import java.util.List;
 
 @RestController
 @RequestMapping("/rest/advert")
 public class AdvertController {
+    @Autowired
+    private AdvertViewRepository advertViewRepository;
 
-    private AdvertViewRepository _advertViewRepository;
-
-    public AdvertController(AdvertViewRepository advertViewRepository){
-        _advertViewRepository = advertViewRepository;
-    }
+    @Autowired
+    private AdvertViewRepositoryImpl advertViewRepositoryImpl;
 
     @GetMapping("/all")
-    public Map<String, String> GetAll(){
-       return _advertViewRepository.findAll();
+    public List<AdvertViewDto> GetAll(){
+        List<AdvertViewDto> advertViews = new ArrayList<>();
+        advertViewRepository.findAll().forEach(advertView -> advertViews.add(new AdvertViewDto(advertView.getId(), advertView.getViews())));
+        return advertViews;
     }
 
     @GetMapping("/all/{id}")
-    public AdvertView GetAll(@PathVariable("id") final Long id){
-        return _advertViewRepository.findById(String.valueOf(id));
+    public AdvertViewDto GetAll(@PathVariable("id") final Long id){
+        AdvertView advertView = advertViewRepository.findById(String.valueOf(id)).get();
+        return new AdvertViewDto(advertView.getId(), advertView.getViews());
     }
 
     @PostMapping("/add")
     public void add(@RequestBody AdvertView advertView){
-        _advertViewRepository.save(advertView);
+        advertViewRepositoryImpl.save(advertView);
     }
 
     @PostMapping("/delete/{id}")
     public void delete(@PathVariable("id") final Long id){
-        _advertViewRepository.delete(String.valueOf(id));
+        advertViewRepository.deleteById(String.valueOf(id));
     }
 
 }
