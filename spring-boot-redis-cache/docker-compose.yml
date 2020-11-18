@@ -1,0 +1,13 @@
+version: '3'
+services:
+  master:
+    container_name: master
+    image: redis:6
+    ports:
+      - 6379:6379
+  slave-1:
+    container_name: slave-1
+    image: redis:6
+    ports:
+      - 6380:6380
+    command: redis-server --slaveof master 6379 --port 6380 --slave-announce-ip 127.0.0.1
