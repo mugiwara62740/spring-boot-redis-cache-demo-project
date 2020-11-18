@@ -11,7 +11,7 @@ import java.util.Optional;
 @Repository
 public class AdvertViewRepositoryImpl implements AdvertViewRepository {
 
-    public static final String ADVERT_TEST = "ADVERT_1";
+    public static final String ADVERT_TEST = "advert_views";
     private RedisTemplate<String, String> redisTemplate;
     private HashOperations hashOperations; //to access redis cache
 

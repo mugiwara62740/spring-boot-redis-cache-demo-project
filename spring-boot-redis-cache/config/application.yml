@@ -1,0 +1,12 @@
+server:
+  port: 8083
+
+spring:
+  redis:
+    master:
+      host: master
+      port: 6379
+    slaves:
+      - host: slave-1
+        port: 6380
+    timeout: 30000
